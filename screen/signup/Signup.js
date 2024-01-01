@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextInput, View,  Text, Button} from "react-native";
 import Input from "../../components/inputText/input";
+import { Table, Row, Rows } from 'react-native-table-component';
+
 
 const Signup = () => {
     const [show, setShow] = useState(false)
+    const [users, setusers] = useState('')
     const [fields, setFields] = useState({
         name: '',
         email: '',
@@ -16,6 +19,12 @@ const Signup = () => {
     const handleSubmit = () => { 
         setShow(true)
      }
+
+     useEffect(() => { 
+      fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res => res.json())
+      .then(data => setusers(data))
+      },[])
 
   return (
     <View style={{ flex: 1, justifyContent: "center",alignItems: 'center', gap: 10 }}>
